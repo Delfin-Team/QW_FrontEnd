@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="../css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <meta charset="utf-8">
+	<title>Index</title>
+</head>
+<body>
+  <!--this div will load the navbar usgin jquery-->
+  <div id="loadHere"></div>
+	<BR>
+	<div class="center-align">
+		<img src="../images/preguntadelasemana.jpg">
+		<img src="../images/udeg.png">
+
+	</div>
+
+
+  <!--jQuery before JS-->
+  <script src="../js/jquery.min.js"></script>
+  <!-- Compiled and minified JavaScript -->
+  <script src="../js/materialize.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function()    {
+      $('#loadHere').load('navbarindex.html');
+    })
+  </script>
+</body>
+</html>
