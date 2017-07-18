@@ -10,6 +10,7 @@
 
 </head>
 <body>
+  <div id="loadHere"></div>
   <!--i class="material-icons">face</i-->
   <BR>
   <div class="center-align ">
@@ -34,10 +35,10 @@
               <div class="row">
                 <hr>
                 <div class="input-field col s12">
-                  <button class="btn waves-effect waves-light z-depth-5" type="submit" name="action">Responder</button>
+                  <a href="answer.html" class="btn waves-effect waves-light z-depth-5" type="submit" name="action">Responder</a>
                   <br>
                   <br>
-                  <h6><a href="#"><i class="material-icons">show_chart</i> Ver votos</a></h6>
+                  <h6><a href="graphicsquestion.html"><i class="material-icons">show_chart</i> Ver votos</a></h6>
                 </div>
               </div>
 
@@ -48,14 +49,24 @@
     </div>
   </div>
 
+
+
   <br>
   <div class="left-align">
     <h3><span style="margin-left:1em">Preguntas propuestas</span></h3>
   </div>
+    <div id="loadProposedQuestions"></div>
   <!--jQuery before JS-->
   <script src="../js/jquery.min.js"></script>
   <!-- Compiled and minified JavaScript -->
   <script src="../js/materialize.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function()    {
+      $('#loadHere').load('navbarlanding.html');
+      $('#loadProposedQuestions').load('proposedquestions.html');
+    })
+  </script>
 
 </body>
 </html>

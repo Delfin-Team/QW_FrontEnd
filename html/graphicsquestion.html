@@ -3,13 +3,26 @@
 <head>
 
   	<link rel="stylesheet" href="../css/materialize.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
   	<meta charset="utf-8">
 
 	<title>Respuestas</title>
 </head>
 <body>
+	<div id="loadHere"></div>
 	<h1 class="center-align">Pregunta aquí</h1>
 	<div class="center-align"><button class="center-align btn waves-effect waves-light z-depth-5">Ver respuestas</button></div>
+
+	<!--jQuery before JS-->
+  <script src="../js/jquery.min.js"></script>
+  <!-- Compiled and minified JavaScript -->
+  <script src="../js/materialize.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function()    {
+      $('#loadHere').load('navbarlanding.html');
+    })
+  </script>
 	
 </body>
 </html>
