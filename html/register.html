@@ -3,14 +3,16 @@
 <head>
   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="../css/materialize.min.css">
-
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <meta charset="utf-8">
 
   <title>Registro</title>
 
 </head>
 <body>
-  
+  <!--this div will load the navbar usgin jquery-->
+  <div id="loadHere"></div>
+
   <BR>
   <h2 class="center-align"><font color=""> Registro</font></h2>
   <BR>
@@ -68,6 +70,13 @@
   <script src="../js/jquery.min.js"></script>
   <!-- Compiled and minified JavaScript -->
   <script src="../js/materialize.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function()    {
+      $('#loadHere').load('navbarindex.html');
+    })
+  </script>
+
 
 </body>
 </html>
