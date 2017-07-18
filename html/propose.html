@@ -7,11 +7,11 @@
  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
  
  <!-- Cargamos el CSS -->
- <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css" media="screen,projection"/>
+ <link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection"/>
  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
-
+	<div id="loadHere"></div>
     <body>
     <h1 class="text center">Proponer...</h1>
       <div class="container">
@@ -56,9 +56,15 @@
 
       </div>
 
+	  <!--jQuery before JS-->
+	  <script src="../js/jquery.min.js"></script>
+	  <!-- Compiled and minified JavaScript -->
+	  <script src="../js/materialize.min.js"></script>
 
-      <!--Import jQuery before materialize.js-->
-      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-      <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+	  <script type="text/javascript">
+	    $(document).ready(function()    {
+	      $('#loadHere').load('navbarlanding.html');
+	    })
+	  </script>
     </body>
 </html>
