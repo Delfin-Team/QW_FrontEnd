@@ -18,7 +18,7 @@
   </div>
   
   <div class="container blue lighten-5 z-depth-3">
-    <h4 class="indigo center-align"><font color="white">Pregunta aqui</font></h4>
+    <h4 class="indigo center-align"><font color="white" id="titleQuestion" ></font></h4>
     <div class="container border-radius: 10px">
       <div class="row">
         <div class="col s9 offset s3"> 
@@ -28,8 +28,8 @@
 
               <div class="row">
                 <h5><i class="material-icons">face</i>  Creador:</h5>
-                <h5><i class="material-icons">schedule</i> Creado:</h5>
-                <h5><i class="material-icons">star</i> Votos:</h5>
+                <h5 id="created"><i class="material-icons">schedule</i> Creado:</h5>
+                <h5 id="totalVotes"><i class="material-icons">star</i> Votos: &nbsp</h5>
               </div>
 
               <div class="row">
@@ -65,6 +65,31 @@
     $(document).ready(function()    {
       $('#loadHere').load('navbarlanding.html');
       $('#loadProposedQuestions').load('proposedquestions.html');
+
+                //week's question
+          $.ajax({
+              // la URL para la petición
+              url : 'http://198.199.80.27/api/questionweek',
+              type : 'GET',
+              dataType : 'json',
+          
+              success : function(json) {
+                  $("#titleQuestion").append(json.title);
+                  $("#totalVotes").append(json.votes);
+                  $("#created").append(json.created_at)
+              },
+          
+              
+              error : function(xhr, status) {
+                  console.log("error")
+              },
+          
+              
+              complete : function(xhr, status) {
+                  console.log("done");
+              }
+          });
+
     })
   </script>
 
