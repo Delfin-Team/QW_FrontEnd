@@ -100,7 +100,7 @@
   <script src="../js/materialize.min.js"></script>
 
   <script type="text/javascript">
-    $(document).ready(function()    {
+    $(document).ready(function(){
       $('#loadHere').load('navbarlanding.html');
       $("#answersList").hide();
       $("#btnQuestion").on('click',function(e){
@@ -147,30 +147,22 @@
             }
         });
       });
-
-
-                //week's question
+          //week's question
           $.ajax({
               // la URL para la petición
               url : 'http://198.199.80.27/api/questionweek',
               type : 'GET',
               dataType : 'json',
-
               success : function(json) {
-
                   $("#titleQuestion").append(json.question.title);
                   $("#totalVotes").append(json.question.votes);
                   $("#created").append(json.owner.created_at);
                   $("#btnQuestion").attr('name',json.question.id);
                   $("#qCreator").append(json.owner.email);
               },
-
-
               error : function(xhr, status) {
                   console.log("error")
               },
-
-
               complete : function(xhr, status) {
                   console.log("done");
               }
@@ -184,24 +176,17 @@
               success : function(json) {
 
                   $.each(json,function(i, item){
-                    $("#addToList").append('<li class="collection-item"><div>'+json[i].title+'<a href="http://198.199.80.27/api/questions/'+json[i].id+'" class="secondary-content"><i class="material-icons">thumb_up</i></a></div></li>');
-
-
+                    $("#addToList").append('<li class="collection-item"><div>'+json[i].title+'<a href="http://198.199.80.27/api/questions/'+json[i].id+'" class="secondary-content"><i class="material-icons">thumb_up</i></a><p> votos:&nbsp'+json[i].votes+'</p></div></li>');
                   });
               },
-
-
               error : function(xhr, status) {
                   console.log("error")
               },
-
-
               complete : function(xhr, status) {
                   console.log("done");
               }
           });
-
-    })
+        })
   </script>
 
 </body>
