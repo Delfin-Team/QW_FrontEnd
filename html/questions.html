@@ -11,26 +11,7 @@
 </head>
 <body>
   <header>
-    <nav class="nav-extended">
-	    <div class="nav-wrapper indigo accent-3">
-	      <a href="questions.html" class="brand-logo">&nbsp Pregunta de la Semana</a>
-	      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-	      <ul id="nav-mobile" class="right hide-on-med-and-down">
-	        <li><a href="propose.html">Proponer</a></li>
-	        <li><a href="winquestions.html">Preguntas ganadoras</a></li>
-	        <li><a href="votes.html">Votos</a></li>
-	        <li><a href="groups.html">Grupos</a></li>
-	        <li><a href="index.html">Salir</a></li>
-	      </ul>
-	      <ul class="side-nav" id="mobile-demo">
-	        <li><a href="propose.html"><i class="material-icons">lightbulb_outline</i>Proponer</a></li>
-	        <li><a href="winquestions.html"><i class="material-icons">timeline</i>Preguntas ganadoras</a></li>
-	        <li><a href="votes.html"><i class="material-icons">thumbs_up_down</i>Votos</a></li>
-	        <li><a href="groups.html"><i class="material-icons">group</i>Grupos</a></li>
-	        <li><a href="index.html"><i class="material-icons">exit_to_app</i>Salir</a></li>
-	      </ul>
-	    </div>
-	  </nav>
+    <div id="loadHere"></div>
   </header>
 
   <BR>
@@ -38,9 +19,9 @@
     <h1><font color="#b71c1c">Pregunta de la semana</font></h1>
   </div>
 
-  <div class="container blue lighten-5 z-depth-3" id="cardQuestion">
+  <div class="container blue lighten-5 z-depth-3" >
     <h4 class="indigo center-align"><font color="white" id="titleQuestion" ></font></h4>
-    <div class="container border-radius: 10px">
+    <div class="container border-radius: 10px" id="cardQuestion">
       <div class="row">
         <div class="col s9 offset s3">
           <!--Materialize Components Forms-->
@@ -48,8 +29,8 @@
             <form class="col s12">
 
               <div class="row">
-                <h5><i class="material-icons">face</i>  Creador:</h5>
-                <h5 id="created"><i class="material-icons">schedule</i> Creado:</h5>
+                <h5 id="qCreator"><i class="material-icons">face</i>  Creador:&nbsp</h5>
+                <h5 id="created"><i class="material-icons">schedule</i> Creado:&nbsp</h5>
                 <h5 id="totalVotes"><i class="material-icons">star</i> Votos: &nbsp</h5>
               </div>
 
@@ -68,39 +49,39 @@
         </div>
       </div>
     </div>
-  </div>
+
   <!--answers-->
-  <div class="container blue lighten-5 z-depth-3" id="answersList">
-    <h5 class="indigo center-align"><font color="white">Elige una respuesta</font></h5>
-    <div class="container">
-      <div class="row">
-        <div class="col s6 offset s3">
-          <!--Materialize Components Forms-->
-          <div class="row">
-            <form class="col s12">
+  <div id="answersList">
 
-              <div class="row">
+      <h5 class="indigo center-align"><font color="white">Elige una respuesta</font></h5>
+      <div class="container">
+        <div class="row">
+          <div class="col s6 offset s3">
+            <!--Materialize Components Forms-->
+            <div class="row">
+              <form class="col s12">
+                <div class="row">
+                      <div id="divAnswers"></div>
+                </div>
+                <div class="row">
+                  <span class="col s3 offset s7">
+                    <button class="btn waves-effect waves-light z-depth-5" type="submit" name="action">Enviar&nbsp </button>
+                  </span>
+                </div>
 
-                    <div id="divAnswers">
-
-                    </div>
-
-              </div>
-
-              <div class="row">
-                <span class="col s3 offset s7">
-                  <button class="btn waves-effect waves-light z-depth-5" type="submit" name="action">Responder</button>
-                </span>
-              </div>
-
-            </form>
+              </form>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+
+  </div>
+  <!--end-->
+
+
   </div>
 
-  <!--end-->
+
 
   <hr>
 
@@ -120,11 +101,12 @@
 
   <script type="text/javascript">
     $(document).ready(function()    {
+      $('#loadHere').load('navbarlanding.html');
       $("#answersList").hide();
       $("#btnQuestion").on('click',function(e){
         e.preventDefault();
         var currentId = $(this).attr("name");
-        $("#cardQuestion").hide("slow");
+        $("#cardQuestion").hide();
         $("#answersList").show();
         console.log(currentId);
         $.ajax({
@@ -178,8 +160,9 @@
 
                   $("#titleQuestion").append(json.question.title);
                   $("#totalVotes").append(json.question.votes);
-                  $("#created").append(json.question.created_at);
+                  $("#created").append(json.owner.created_at);
                   $("#btnQuestion").attr('name',json.question.id);
+                  $("#qCreator").append(json.owner.email);
               },
 
 
@@ -201,7 +184,7 @@
               success : function(json) {
 
                   $.each(json,function(i, item){
-                    $("#addToList").append('<li class="collection-item"><div>"'+json[i].title+'"<a href="http://198.199.80.27/api/questions/'+json[i].id+'" class="secondary-content"><i class="material-icons">send</i></a></div></li>');
+                    $("#addToList").append('<li class="collection-item"><div>'+json[i].title+'<a href="http://198.199.80.27/api/questions/'+json[i].id+'" class="secondary-content"><i class="material-icons">thumb_up</i></a></div></li>');
 
 
                   });
