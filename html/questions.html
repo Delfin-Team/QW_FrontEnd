@@ -38,7 +38,7 @@
     <h1><font color="#b71c1c">Pregunta de la semana</font></h1>
   </div>
 
-  <div class="container blue lighten-5 z-depth-3">
+  <div class="container blue lighten-5 z-depth-3" id="cardQuestion">
     <h4 class="indigo center-align"><font color="white" id="titleQuestion" ></font></h4>
     <div class="container border-radius: 10px">
       <div class="row">
@@ -56,7 +56,7 @@
               <div class="row">
                 <hr>
                 <div class="input-field col s12">
-                  <a href="answer.html" class="btn waves-effect waves-light z-depth-5" type="submit" name="action">Responder</a>
+                  <button class="btn btn-waves" id="btnQuestion" name="">Responder</button>
                   <br>
                   <br>
                   <h6><a href="graphicsquestion.html"><i class="material-icons">show_chart</i> Ver votos</a></h6>
@@ -69,8 +69,38 @@
       </div>
     </div>
   </div>
+  <!--answers-->
+  <div class="container blue lighten-5 z-depth-3" id="answersList">
+    <h5 class="indigo center-align"><font color="white">Elige una respuesta</font></h5>
+    <div class="container">
+      <div class="row">
+        <div class="col s6 offset s3">
+          <!--Materialize Components Forms-->
+          <div class="row">
+            <form class="col s12">
 
+              <div class="row">
 
+                    <div id="divAnswers">
+
+                    </div>
+
+              </div>
+
+              <div class="row">
+                <span class="col s3 offset s7">
+                  <button class="btn waves-effect waves-light z-depth-5" type="submit" name="action">Responder</button>
+                </span>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--end-->
 
   <hr>
 
@@ -90,7 +120,51 @@
 
   <script type="text/javascript">
     $(document).ready(function()    {
+      $("#answersList").hide();
+      $("#btnQuestion").on('click',function(e){
+        e.preventDefault();
+        var currentId = $(this).attr("name");
+        $("#cardQuestion").hide("slow");
+        $("#answersList").show();
+        console.log(currentId);
+        $.ajax({
+            // la URL para la petición
+            url : 'http://198.199.80.27/api/questions/' + currentId,
+            type : 'GET',
+            dataType : 'json',
 
+            success : function(json) {
+
+                $.each(json.answers,function(i, item){
+                  var formxD = $("#divAnswers");
+                  console.log(json.answers[i].description);
+                  formxD.append('<p>\
+                    <input class="with-gap" name="answer" type="radio" id="'+json.answers[i].id+'" />\
+                    <label for="'+json.answers[i].id+'">'+json.answers[i].description+'</label>\
+                  </p>\
+                  ');
+                  /*
+                  <p>
+                    <input class="with-gap" name="group1" type="radio" id="test1" />
+                    <label for="test1">Red</label>
+                  </p>
+                  */
+
+
+                });
+            },
+
+
+            error : function(xhr, status) {
+                console.log("error")
+            },
+
+
+            complete : function(xhr, status) {
+                console.log("done");
+            }
+        });
+      });
 
 
                 //week's question
@@ -101,9 +175,11 @@
               dataType : 'json',
 
               success : function(json) {
-                  $("#titleQuestion").append(json.title);
-                  $("#totalVotes").append(json.votes);
-                  $("#created").append(json.created_at)
+
+                  $("#titleQuestion").append(json.question.title);
+                  $("#totalVotes").append(json.question.votes);
+                  $("#created").append(json.question.created_at);
+                  $("#btnQuestion").attr('name',json.question.id);
               },
 
 
@@ -123,10 +199,10 @@
               dataType : 'json',
 
               success : function(json) {
-                  console.log(json);
+
                   $.each(json,function(i, item){
                     $("#addToList").append('<li class="collection-item"><div>"'+json[i].title+'"<a href="http://198.199.80.27/api/questions/'+json[i].id+'" class="secondary-content"><i class="material-icons">send</i></a></div></li>');
-                    console.log(i);
+
 
                   });
               },
