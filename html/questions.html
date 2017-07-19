@@ -10,18 +10,39 @@
 
 </head>
 <body>
-  <div id="loadHere"></div>
-  <!--i class="material-icons">face</i-->
+  <header>
+    <nav class="nav-extended">
+	    <div class="nav-wrapper indigo accent-3">
+	      <a href="questions.html" class="brand-logo">&nbsp Pregunta de la Semana</a>
+	      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+	      <ul id="nav-mobile" class="right hide-on-med-and-down">
+	        <li><a href="propose.html">Proponer</a></li>
+	        <li><a href="winquestions.html">Preguntas ganadoras</a></li>
+	        <li><a href="votes.html">Votos</a></li>
+	        <li><a href="groups.html">Grupos</a></li>
+	        <li><a href="index.html">Salir</a></li>
+	      </ul>
+	      <ul class="side-nav" id="mobile-demo">
+	        <li><a href="propose.html"><i class="material-icons">lightbulb_outline</i>Proponer</a></li>
+	        <li><a href="winquestions.html"><i class="material-icons">timeline</i>Preguntas ganadoras</a></li>
+	        <li><a href="votes.html"><i class="material-icons">thumbs_up_down</i>Votos</a></li>
+	        <li><a href="groups.html"><i class="material-icons">group</i>Grupos</a></li>
+	        <li><a href="index.html"><i class="material-icons">exit_to_app</i>Salir</a></li>
+	      </ul>
+	    </div>
+	  </nav>
+  </header>
+
   <BR>
   <div class="center-align ">
     <h1><font color="#b71c1c">Pregunta de la semana</font></h1>
   </div>
-  
+
   <div class="container blue lighten-5 z-depth-3">
     <h4 class="indigo center-align"><font color="white" id="titleQuestion" ></font></h4>
     <div class="container border-radius: 10px">
       <div class="row">
-        <div class="col s9 offset s3"> 
+        <div class="col s9 offset s3">
           <!--Materialize Components Forms-->
           <div class="row">
             <form class="col s12">
@@ -51,11 +72,17 @@
 
 
 
-  <br>
-  <div class="left-align">
-    <h3><span style="margin-left:1em">Preguntas propuestas</span></h3>
-  </div>
-    <div id="loadProposedQuestions"></div>
+  <hr>
+
+    <div id="loadProposedQuestions" >
+      <ul class="collection with-header">
+        <li class="collection-header"><h4>Preguntas propuestas</h4></li>
+        <div id="addToList">
+
+        </div>
+      </ul>
+    </div>
+
   <!--jQuery before JS-->
   <script src="../js/jquery.min.js"></script>
   <!-- Compiled and minified JavaScript -->
@@ -63,8 +90,8 @@
 
   <script type="text/javascript">
     $(document).ready(function()    {
-      $('#loadHere').load('navbarlanding.html');
-      $('#loadProposedQuestions').load('proposedquestions.html');
+
+
 
                 //week's question
           $.ajax({
@@ -72,19 +99,44 @@
               url : 'http://198.199.80.27/api/questionweek',
               type : 'GET',
               dataType : 'json',
-          
+
               success : function(json) {
                   $("#titleQuestion").append(json.title);
                   $("#totalVotes").append(json.votes);
                   $("#created").append(json.created_at)
               },
-          
-              
+
+
               error : function(xhr, status) {
                   console.log("error")
               },
-          
-              
+
+
+              complete : function(xhr, status) {
+                  console.log("done");
+              }
+          });
+          $.ajax({
+              // la URL para la petición
+              url : 'http://198.199.80.27/api/questions',
+              type : 'GET',
+              dataType : 'json',
+
+              success : function(json) {
+                  console.log(json);
+                  $.each(json,function(i, item){
+                    $("#addToList").append('<li class="collection-item"><div>"'+json[i].title+'"<a href="http://198.199.80.27/api/questions/'+json[i].id+'" class="secondary-content"><i class="material-icons">send</i></a></div></li>');
+                    console.log(i);
+
+                  });
+              },
+
+
+              error : function(xhr, status) {
+                  console.log("error")
+              },
+
+
               complete : function(xhr, status) {
                   console.log("done");
               }
