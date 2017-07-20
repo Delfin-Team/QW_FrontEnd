@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>example</title>
+	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.0/css/materialize.min.css">
+
+</head>
+<body>
+
+	<div class="container" id="main">
+		<ul>
+			<li v-for="question in questions">
+				title: {{ question.title}}
+				votos: {{question.votes}}
+			</li>
+		</ul>
+		<mycomponent></mycomponent>
+		<mycomponent></mycomponent><mycomponent></mycomponent><mycomponent></mycomponent><mycomponent></mycomponent>
+	</div>
+
+
+
+
+
+
+
+	<script type="text/javascript" src="https://unpkg.com/vue@2.4.1"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js"></script>
+
+	<script type="text/javascript">
+		Vue.component('mycomponent',{
+			template:  '<div>A custom component!</div>',
+		});
+		new Vue({
+			el: "#main",
+			created: function(){
+				this.getQuestions();
+			},
+			data: {
+				questions: [],
+			},
+			methods:{
+				getQuestions: function(){
+					var apiURl = "http://198.199.80.27/api/questions";
+					axios.get(apiURl).then(response => {
+						this.questions = response.data;
+					});
+				}
+			}
+		});
+	</script>
+</body>
+</html>
