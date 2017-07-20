@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>grupos</title>
+  <meta charset="UTF-8">
+   <!-- Le decimos al navegador que nuestra web esta optimizada para moviles -->
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+   
+   <!-- Cargamos el CSS -->
+   <link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection"/>
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div id="loadHere"></div>
+  </header>
+  <h1 class="center-align" > Nombre del grupo</h1>
+    <div class="row">
+      <div class="col s6 offset-s3">
+        <h3 class="center-align">Preguntas del grupo</h3>
+        <ul class="collapsible popout" data-collapsible="accordion">
+          <li>
+            <div class="collapsible-header"><i class="material-icons">arrow_drop_down</i>Pregunta 1</div>
+            <div class="collapsible-body"><span>respuesta1<br>respuesta2<br>respuesta 3</span></div>
+          </li>
+          <li>
+            <div class="collapsible-header"><i class="material-icons">arrow_drop_down</i>pregunta dos</div>
+            <div class="collapsible-body"><span>respuesta 1<br>Respuesta2 <br>respuesta 3</span></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+      <div class="fixed-action-btn">
+        <a class="btn-floating btn-large waves-effect waves-light red" href="#modal1"><i class="material-icons">person_add</i></a>  
+      </div>
+
+
+  <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" src="../js/materialize.min.js"></script>
+      <script type="text/javascript">
+      $(document).ready(function()    {
+          $('#loadHere').load('navbarlanding.html');
+          $('.modal').modal();
+          $('.collapsible').collapsible();
+      })
+      </script>
+</body>
+</html>
