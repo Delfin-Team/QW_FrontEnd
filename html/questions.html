@@ -87,10 +87,20 @@
 
   <hr>
 
-    <div id="loadProposedQuestions" >
+    <div  id="app6">
       <ul class="collection with-header">
         <li class="collection-header"><h4>Preguntas propuestas</h4></li>
         <div id="addToList"></div>
+        <!--list-->
+          <li class="collection-item" v-for="question in questions">
+            <div>{{question.title}}
+            <button v-on:click="addVote(question.id)" class="btn secondary-content">
+              <i class="material-icons">thumb_up</i>
+            </button>
+            <p> Votos: {{question.votes}}</p>
+            </div>
+          </li>
+        <!--end-->
       </ul>
     </div>
 
@@ -98,7 +108,8 @@
   <script src="../js/jquery.min.js"></script>
   <!-- Compiled and minified JavaScript -->
   <script src="../js/materialize.min.js"></script>
-
+  <script src="https://vuejs.org/js/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script type="text/javascript">
     $(document).ready(function(){
       $('#loadHere').load('navbarlanding.html');
@@ -107,7 +118,6 @@
         e.preventDefault();
         $("#cardQuestion").hide();
         $("#answersList").show();
-     
       });
           //week's question
           $.ajax({
@@ -140,26 +150,42 @@
                   console.log("done");
               }
           });
-          $.ajax({
-              // la URL para la petición
-              url : 'http://198.199.80.27/api/questions',
-              type : 'GET',
-              dataType : 'json',
-
-              success : function(json) {
-
-                  $.each(json,function(i, item){
-                    $("#addToList").append('<li class="collection-item"><div>'+json[i].title+'<a href="http://198.199.80.27/api/questions/'+json[i].id+'" class="secondary-content"><i class="material-icons">thumb_up</i></a><p> votos:&nbsp'+json[i].votes+'</p></div></li>');
-                  });
-              },
-              error : function(xhr, status) {
-                  console.log("error")
-              },
-              complete : function(xhr, status) {
-                  console.log(json[i].title);
-              }
-          });
         })
+  </script>
+
+  
+  <script>
+    new Vue({
+      el: "#app6",
+      created: function(){
+        this.getQuestions();
+      },
+      data: {
+        questions: [],
+        
+      },
+      methods: {
+        addVote: function(id){
+          
+          var apiURL = "http://198.199.80.27/api/addVote/" + id;
+          axios({
+            method:'put',
+            url: apiURL,
+          })
+            .then(response => {
+              console.log(response.data);
+            });
+          },
+        getQuestions: function(){
+          var url = "http://198.199.80.27/api/questions";
+          axios.get(url).then(response => {
+            this.questions = response.data;
+            console.log(response.data);
+          });
+        }
+        }//end
+      
+    })
   </script>
 
 </body>
