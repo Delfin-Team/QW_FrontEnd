@@ -18,13 +18,13 @@
       <h1 class="center-align" >Welcome</h1>
         <h2>Mis grupos</h2>
           <div class="row">
-            <div class="col s6 offset-s3">
+            <div class="col s8 offset-s2">
               <ul class="collection">
                 <li class="collection-item avatar" v-for="group in groups">
                   <img src="../images/janeth.jpg" alt="" class="circle">
                   <span class="title"><a href="mygroup.html">{{group.name}}</a></span>
-                  <p> Cantidad de Mienbros: </p>
-                  <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+                  <p><i class="material-icons">people</i>&nbsp {{group.id}} </p>
+                  <a class="waves-effect waves-red btn-floating secondary-content" v-on:click="deleteGroup(group.id)"><i class="material-icons">delete</i></a>
                 </li>
               </ul>
             </div>
@@ -36,7 +36,7 @@
               <li class="collection-item avatar">
                 <img src="../images/emiliano.jpg" alt="" class="circle">
                 <span class="title"><a href="#!">Los sureños</a></span>
-                <p> Cantidad de Mienbros: </p>
+                <p><i class="material-icons">people</i> </p>
                 <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
               </li>
             </ul>
@@ -63,7 +63,7 @@
         </div>
         <div class="modal-footer">
 
-          <button class="modal-action modal-close waves-effect waves-green btn-flat" v-on:click="addGroup" v-if="nameGroup"> crear </button>
+          <button class="modal-action modal-close waves-effect waves-green btn-flat" v-on:click="postGroup" v-if="nameGroup"> crear </button>
           
           <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
         </div>
@@ -103,13 +103,21 @@
                 console.log(this.groups);
               });
             },
-            addGroup: function(){
+            postGroup: function(){
               axios.post("http://198.199.80.27/api/groups", {
                 name: this.nameGroup,
               }).then(response => {
                   console.log(response.data);
                   this.nameGroup= "";
                   this.getGroups();
+                }
+              );
+            },
+            //Not working, yet
+            deleteGroup: function(id){
+              axios.delete("http://198.199.80.27/api/groups/" + id ,{}
+              ).then(response =>{
+                  console.log(response.data);
                 }
               );
             },
