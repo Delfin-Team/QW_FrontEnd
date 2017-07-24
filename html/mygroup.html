@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 	<title>grupos</title>
 	<meta charset="UTF-8">
 	 <!-- Le decimos al navegador que nuestra web esta optimizada para moviles -->
@@ -11,10 +12,14 @@
 	 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-  <h1> Nombre del grupo</h1>
+  <header>
+    <div id="loadHere"></div>
+  </header>
+  <h1 class="center-align" > Nombre del grupo</h1>
     <div class="row">
       <div class="col s6 offset-s3">
-        <h3>Preguntas del grupo</h3>
+        <h3 class="center-align">Preguntas del grupo</h3>
+
         <ul class="collapsible popout" data-collapsible="accordion">
           <li>
             <div class="collapsible-header"><i class="material-icons">arrow_drop_down</i>Pregunta 1</div>
@@ -28,11 +33,77 @@
       </div>
     </div>
 
+    <div id="main" class="container">
+      <!-- Modal Structure -->
+      <div id="modal1" class="modal">
+        <div class="modal-content">
+          <h4>Agregar un Usuario:</h4>
+            <div class="row">
+              <form class="col s12">
+                <div class="row">
+
+                   <div class="input-field col s12">
+                          <i class="material-icons prefix">account_circle</i>
+                          <input id="icon_prefix" type="text" class="validate" v-model="email">
+                          <label for="icon_prefix">Usuario</label>
+                        </div>
+                  <ul class="collection">
+                    
+                    <li v-for="item in searchUser" class="collection-item"><div>{{item.email}}<a href="#!" class="secondary-content"><i class="material-icons">person_add</i></a></div></li>
+                  </ul>
+                
+                </div>
+              </form> 
+            </div>
+        </div>
+        <div class="modal-footer">
+
+          <button class="modal-action modal-close waves-effect waves-green btn-flat" v-on:click="addUser" > Agregar </button>
+          
+          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+        </div>
+      </div>
+  </div>
+
       <div class="fixed-action-btn">
         <a class="btn-floating btn-large waves-effect waves-light red" href="#modal1"><i class="material-icons">person_add</i></a>  
       </div>
 
+     <!-- vue --> 
+      <script type="text/javascript" src="https://unpkg.com/vue@2.4.1"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js"></script>
+      <script type="text/javascript" src="../js/app.js"></script>
+      <script type="text/javascript">
+        
+        new Vue({
+          el: "#main",
+          data: {
+            list: [],
+            email:'',
+          },
+          created: function(){
+            this.getUsers();
+          },
+          methods:{
+            getUsers: function(){
+              var urlUsers="http://198.199.80.27/api/users";
+              axios.get(urlUsers).then(response=>{
 
+                this.list= response.data.users;
+              });
+
+
+            }
+          },
+
+          computed:{
+            searchUser:function(){
+              return this.list.filter((item)=>item.email.includes(this.email));
+            }
+          }
+
+        });
+      </script>
   <!--Import jQuery before materialize.js-->
       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
       <script type="text/javascript" src="../js/materialize.min.js"></script>

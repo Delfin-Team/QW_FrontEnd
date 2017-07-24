@@ -14,48 +14,90 @@
 	<div id="loadHere"></div>
     <body>
     <h1 class="text center">Proponer...</h1>
-      <div class="container">
+      <div class="container" id="main">
         <!-- Page Content goes here -->
 		   <div class="row">
 		    <form class="col s6 offset-s3">
 		      <div class="row">
 		      	 <div class="input-field col s12">
 		          <i class="material-icons prefix">insert_emoticon</i>
-		          <input id="icon_prefix" type="text" class="validate">
+		          <input id="icon_prefix" type="text" class="validate" v-model="titleQuestion">
 		          <label for="icon_prefix">Titulo:</label>
 		        </div>
 		        <div class="input-field col s12">
 		          <i class="material-icons prefix">local_florist</i>
-		          <input id="icon_prefix" type="text" class="validate">
+		          <input id="icon_prefix" type="text" class="validate" v-model="descriptionQuestion">
 		          <label for="icon_prefix">Descripcion</label>
 		        </div>
 		       	<h3 class="text center">Posibles respuestas</h3>
 		        <div class="input-field col s12 xl4 I2">
 		          <i class="material-icons prefix">local_activity</i>
-		          <input id="icon_prefix" type="text" class="validate">
+		          <input id="icon_prefix" type="text" class="validate" v-model="answer1Question">
 		          <label for="icon_prefix">Respuesta 1</label>
 		        </div>
 		        <div class="input-field col s12 xl4 I2">
 		          <i class="material-icons prefix">local_activity</i>
-		          <input id="icon_telephone" type="tel" class="validate">
+		          <input id="icon_telephone" type="tel" class="validate" v-model="answer2Question">
 		          <label for="icon_telephone">Respuesta 2</label>
 		        </div>
 		        <div class="input-field col s12 xl4 I2">
 		          <i class="material-icons prefix">local_activity</i>
-		          <input id="icon_telephone" type="tel" class="validate">
+		          <input id="icon_telephone" type="tel" class="validate" v-model="answer3Question">
 		          <label for="icon_telephone">Respuesta 3</label>
 		        </div>
 		      </div>
 		    </form>
 		  </div>
 		  <div class="center-align">
-		  	<button class="btn waves-effect waves-light" type="submit" name="action" >Enviar
+		  	<button class="btn waves-effect waves-light" type="submit" v-on:click="addQuestion" v-if="titleQuestion" >Enviar
                 <i class="material-icons right">send</i>
             </button>
 		  </div>
 
       </div>
+     <!-- vue --> 
+      <script type="text/javascript" src="https://unpkg.com/vue@2.4.1"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js"></script>
+      <script type="text/javascript">
+        
+        new Vue({
+          el: "#main",
+          created: function(){
+            this.addQuestion();
+          },
+          data: {
+            groups: [],
+            descriptionQuestion:"",
+            titleQuestion:"",
+            answer3Question:"",
+            answer2Question:"",
+            answer1Question:"",
 
+
+          },
+          methods:{
+
+            addQuestion: function(){
+              axios.post("http://198.199.80.27/api/question/create", {
+              title: this.titleQuestion,
+              description: descriptionQuestion,
+              answer1: answer1Question,
+              answer2: answer2Question,
+              answer3: answer3Question,
+              }).then(response => {
+                  console.log(response.data);
+                  this.descriptionQuestion="";
+                  this.titleQuestion="";
+                  this.answer1Question="";
+                  this.answer2Question="";
+                  this.answer3Question="";
+                  this.getGroups();
+                }
+              );
+            },
+          }
+        });
+      </script>
 	  <!--jQuery before JS-->
 	  <script src="../js/jquery.min.js"></script>
 	  <!-- Compiled and minified JavaScript -->
