@@ -97,11 +97,17 @@
           },
           methods:{
             getGroups: function(){
-              var apiURl = "http://198.199.80.27/api/groups";
-              axios.get(apiURl).then(response => {
-                this.groups = response.data.groups;
-                console.log(this.groups);
-              });
+              var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlzcyI6Imh0dHA6Ly8xOTguMTk5LjgwLjI3L2FwaS9hdXRoZW50aWNhdGUiLCJpYXQiOjE1MDEwMjAwMzIsImV4cCI6MTUwMTAyMzYzMiwibmJmIjoxNTAxMDIwMDMyLCJqdGkiOiJHcTJtdjNMRmxlOGhSSHlBIn0.7KHCyVsrEY9VGjKZ4X5BSM4AXXwGb9mkSRg89QhgW0I';
+              axios({
+                url:'/groups',
+                method: 'get',
+                baseURL: 'http://198.199.80.27/api/',
+                headers: {'authorization':'Bearer '+token}
+              })
+              .then(response => {
+                    this.groups = response.data.groups;
+                    console.log(this.data);
+                  })
             },
             postGroup: function(){
               axios.post("http://198.199.80.27/api/groups", {
