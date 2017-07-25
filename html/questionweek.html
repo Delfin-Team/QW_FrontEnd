@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="../css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <meta charset="utf-8">
+
+  <title>Pregunta de la semana</title>
+
+</head>
+<body>
+  <div class="container" id="main">
+    <header>
+      <mynavbar></mynavbar>
+    </header>
+
+    <h1>Pregunta de la semana</h1>
+    <div class="row">
+      <div class="col-xs-6">
+        <form >
+          <h4>
+            {{question.title}}
+          </h4>
+          <button class="btn" v-on:click="showCard">Responder</button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+  <!---->
+  <script type="text/javascript" src="https://unpkg.com/vue@2.4.1"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js"></script>
+  <script type="text/javascript" src="../js/app.js"></script>
+  <!--jQuery before JS-->
+  <script src="../js/jquery.min.js"></script>
+  <!-- Compiled and minified JavaScript -->
+  <script src="../js/materialize.min.js"></script>
+  <script>
+    new Vue({
+          el: "#main",
+          created: function(){
+            this.getQuestionWeek();
+          },
+          data: {
+            question: [],
+            answersState: false,
+
+          },
+          methods:{
+            getQuestionWeek: function(){
+              var apiURl = "http://198.199.80.27/api/questionweek";
+              axios.get(apiURl).then(response => {
+                this.question = response.data.question;
+                console.log(this.question);
+              });
+            },
+            showCard: function(e){
+              e.preventDefault();
+              this.answersState = !this.answersState;
+            }
+          }
+        });
+
+  </script>
+
+</body>
+</html>

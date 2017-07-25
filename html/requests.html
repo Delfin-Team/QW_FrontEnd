@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="utf-8">
 	<title>example</title>
 	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.0/css/materialize.min.css">
 
@@ -14,8 +15,15 @@
 				votos: {{question.votes}}
 			</li>
 		</ul>
-		<mycomponent></mycomponent>
-		<mycomponent></mycomponent><mycomponent></mycomponent><mycomponent></mycomponent><mycomponent></mycomponent>
+		
+		new group
+
+		<form v-on:submit.prevent>
+			<label for="">Nombre del grupo</label>
+			<input type="text" v-model="name">
+			<button class="btn" v-on:click="addGroup" v-if="name">Agregar</button>
+		</form>
+		
 	</div>
 
 
@@ -38,14 +46,27 @@
 			},
 			data: {
 				questions: [],
+				name: "",
 			},
 			methods:{
 				getQuestions: function(){
-					var apiURl = "http://198.199.80.27/api/questions";
+					var apiURl = "http://localhost:8000/api/questions";
 					axios.get(apiURl).then(response => {
 						this.questions = response.data;
 					});
-				}
+				},
+				addGroup: function(){
+					axios.post('http://localhost:8000/api/groups', {
+						name: this.name,
+					})
+					.then(function (response) {
+						console.log(response.data);
+						this.name = "";
+					})
+					.catch(function (error) {
+						console.log(error);
+					});
+				},
 			}
 		});
 	</script>

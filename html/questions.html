@@ -4,20 +4,18 @@
   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="../css/materialize.min.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <meta charset="utf-8">  
-  
+  <meta charset="utf-8">
+
   <title>Pregunta de la semana</title>
 
 </head>
 <body>
-  <div class="conatainer" id="main">
-    
+  <div class="container" id="main">
+
     <header>
       <mynavbar></mynavbar>
     </header>
-    <pre>
-      {{question.user}}
-    </pre>
+
     <!--question card-->
     <div class="container blue lighten-5 z-depth-3" >
     <h4 class="indigo center-align"><font color="white" id="titleQuestion" ></font></h4>
@@ -29,7 +27,7 @@
             <form class="col s12">
 
               <div class="row">
-                <h5 id="qCreator"><i class="material-icons">face</i>  Creador: {{ question.user.name }} - {{ question.user.email}}</h5>
+                <h5 id="qCreator"><i class="material-icons">face</i>  Creador: {{ question.user.name }} </h5>
                 <h5 id="created"><i class="material-icons">schedule</i> Creado: {{ question.created_at}}</h5>
                 <h5 id="totalVotes"><i class="material-icons">star</i> Votos: {{ question.votes}}</h5>
               </div>
@@ -37,8 +35,10 @@
               <div class="row">
                 <hr>
                 <div class="input-field col s12">
-                  <button class="btn btn-waves" id="btnQuestion" name="">Responder</button>
+                  <button class="btn btn-waves" v-on:click="showCard">Responder</button>
+
                   <br>
+
                   <br>
                   <h6><a href="graphicsquestion.html"><i class="material-icons">show_chart</i> Ver votos</a></h6>
                 </div>
@@ -51,7 +51,7 @@
     </div>
 
   <!--answers-->
-  <div id="answersList">
+  <div id="answersList" v-if="answersState">
 
       <h5 class="indigo center-align"><font color="white">Elige una respuesta</font></h5>
       <div class="container">
@@ -60,7 +60,7 @@
             <!--Materialize Components Forms-->
             <div class="row">
               <form class="col s12">
-                {{question.answers}}
+
                     <p v-for="answer in question.answers">
                       <input name="group1" type="radio" v-bind:id="answer.id" />
                       <label v-bind:for="answer.id" >{{answer.description}}</label>
@@ -68,6 +68,8 @@
                 <div class="row">
                   <span class="col s3 offset s7">
                     <button class="btn waves-effect waves-light z-depth-5" type="submit" name="action">Enviar&nbsp </button>
+                    <br>
+                    <button class="btn waves-effect waves-light z-depth-5" v-on:click="showCard">Cancelar</button>
                   </span>
                 </div>
 
@@ -89,7 +91,7 @@
     <h1><font color="#b71c1c">Pregunta de la semana</font></h1>
   </div>
 
-  
+
 
 
 
@@ -119,6 +121,7 @@
           },
           data: {
             question: [],
+            answersState: false,
 
           },
           methods:{
@@ -128,6 +131,10 @@
                 this.question = response.data.question;
                 console.log(this.question);
               });
+            },
+            showCard: function(e){
+              e.preventDefault();
+              this.answersState = !this.answersState;
             }
           }
         });
