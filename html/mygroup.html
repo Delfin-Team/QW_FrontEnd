@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 	<title>grupos</title>
 	<meta charset="UTF-8">
 	 <!-- Le decimos al navegador que nuestra web esta optimizada para moviles -->
@@ -11,112 +12,98 @@
 	 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-<div id="loadHere"></div>
-<h1 class="center-align" >Welcome</h1>
-<h2>&nbspMis grupos</h2>
-  <div class="row">
-  	<div class="col s6 offset-s3">
-  	<ul class="collection">
-      <li class="collection-item avatar">
-        <img src="../images/janeth.jpg" alt="" class="circle">
-        <span class="title"><a href="#!">Los Norteños</a></span>
-        <p> Cantidad de Mienbros: </p>
-        <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-      </li>
-      <li class="collection-item avatar">
-        <img src="../images/tobi.jpg" alt="" class="circle">
-        <span class="title"><a href="#!">Perros perrunos</a></span>
-        <p> Cantidad de Mienbros: </p>
-        <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-      </li>
-      <li class="collection-item avatar">
-        <img src="../images/emiliano.jpg" alt="" class="circle">
-        <span class="title"><a href="#!">Babys</a></span>
-        <p> Cantidad de Mienbros: </p>
-        <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-      </li>
-      <li class="collection-item avatar">
-        <img src="../images/carne.jpg" alt="" class="circle">
-        <span class="title"><a href="#!">comida</a></span>
-        <p> Cantidad de Mienbros: </p>
-        <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-      </li>
-      <li class="collection-item avatar">
-        <i class="material-icons circle">folder</i>
-        <span class="title"><a href="#!">tareas</a></span>
-        <p> Cantidad de Mienbros: </p>
-        <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-      </li>
-  </ul>
-  </div>
-  </div>
+  <header>
+    <div id="loadHere"></div>
+  </header>
+  <h1 class="center-align" > Nombre del grupo</h1>
+    <div class="row">
+      <div class="col s6 offset-s3">
+        <h3 class="center-align">Preguntas del grupo</h3>
 
-  <h2>&nbspGrupos</h2>
-  <div class="row">
-  	<div class="col s6 offset-s3">
-    	<ul class="collection">
-        <li class="collection-item avatar">
-          <img src="../images/emiliano.jpg" alt="" class="circle">
-          <span class="title"><a href="#!">Los sureños</a></span>
-          <p> Cantidad de Mienbros: </p>
-          <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-        </li>
-        <li class="collection-item avatar">
-          <img src="../images/gatos.jpg" alt="" class="circle">
-          <span class="title"><a href="#!">Gatos Gatunos</a></span>
-          <p> Cantidad de Mienbros: </p>
-          <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-        </li>
-        <li class="collection-item avatar">
-          <img src="../images/viejos.jpg" alt="" class="circle">
-          <span class="title"><a href="#!">viejos</a></span>
-          <p> Cantidad de Mienbros: </p>
-          <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-        </li>
-        <li class="collection-item avatar">
-          <img src="../images/janeth.jpg" alt="" class="circle">
-          <span class="title"><a href="#!">Moda</a></span>
-          <p> Cantidad de Mienbros: </p>
-          <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-        </li>
-        <li class="collection-item avatar">
-          <i class="material-icons circle">assignment_ind</i>
-          <span class="title"><a href="#!">PARTY</a></span>
-          <p> Cantidad de Mienbros: </p>
-          <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-        </li>
-      </ul>
+        <ul class="collapsible popout" data-collapsible="accordion">
+          <li>
+            <div class="collapsible-header"><i class="material-icons">arrow_drop_down</i>Pregunta 1</div>
+            <div class="collapsible-body"><span>respuesta1<br>respuesta2<br>respuesta 3</span></div>
+          </li>
+          <li>
+            <div class="collapsible-header"><i class="material-icons">arrow_drop_down</i>pregunta dos</div>
+            <div class="collapsible-body"><span>respuesta 1<br>Respuesta2 <br>respuesta 3</span></div>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
-  <div>
-     
 
+    <div id="main" class="container">
       <!-- Modal Structure -->
       <div id="modal1" class="modal">
         <div class="modal-content">
-          <h4>Agregar un nuevo grupo:</h4>
+          <h4>Agregar un Usuario:</h4>
             <div class="row">
               <form class="col s12">
                 <div class="row">
-                  <div class="input-field col s12">
-                    <i class="material-icons prefix">account_circle</i>
-                    <input id="icon_prefix" type="text" class="validate">
-                    <label for="icon_prefix">Nombre Grupo</label>
-                  </div>
+
+                   <div class="input-field col s12">
+                          <i class="material-icons prefix">account_circle</i>
+                          <input id="icon_prefix" type="text" class="validate" v-model="email">
+                          <label for="icon_prefix">Usuario</label>
+                        </div>
+                  <ul class="collection">
+                    
+                    <li v-for="item in searchUser" class="collection-item"><div>{{item.email}}<a href="#!" class="secondary-content"><i class="material-icons">person_add</i></a></div></li>
+                  </ul>
+                
                 </div>
-              </form>
+              </form> 
             </div>
         </div>
         <div class="modal-footer">
-          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Crear</a>
+
+          <button class="modal-action modal-close waves-effect waves-green btn-flat" v-on:click="addUser" > Agregar </button>
+          
+          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
         </div>
       </div>
   </div>
- <!-- Modal Trigger -->
+
       <div class="fixed-action-btn">
-        <a class="btn-floating btn-large waves-effect waves-light red" href="#modal1"><i class="material-icons">add</i></a>  
+        <a class="btn-floating btn-large waves-effect waves-light red" href="#modal1"><i class="material-icons">person_add</i></a>  
       </div>
-      
+
+     <!-- vue --> 
+      <script type="text/javascript" src="https://unpkg.com/vue@2.4.1"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js"></script>
+      <script type="text/javascript" src="../js/app.js"></script>
+      <script type="text/javascript">
+        
+        new Vue({
+          el: "#main",
+          data: {
+            list: [],
+            email:'',
+          },
+          created: function(){
+            this.getUsers();
+          },
+          methods:{
+            getUsers: function(){
+              var urlUsers="http://198.199.80.27/api/users";
+              axios.get(urlUsers).then(response=>{
+
+                this.list= response.data.users;
+              });
+
+
+            }
+          },
+
+          computed:{
+            searchUser:function(){
+              return this.list.filter((item)=>item.email.includes(this.email));
+            }
+          }
+
+        });
+      </script>
   <!--Import jQuery before materialize.js-->
       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
       <script type="text/javascript" src="../js/materialize.min.js"></script>
@@ -124,6 +111,7 @@
       $(document).ready(function()    {
           $('#loadHere').load('navbarlanding.html');
           $('.modal').modal();
+          $('.collapsible').collapsible();
       })
       </script>
 </body>

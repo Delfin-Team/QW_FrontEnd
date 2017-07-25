@@ -60,16 +60,32 @@
             <!--Materialize Components Forms-->
             <div class="row">
               <form class="col s12">
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+                {{question.answers}}
+>>>>>>> a2b77dd068936f7b67fb7c4f3fbc265385e58c7f
                     <p v-for="answer in question.answers">
                       <input name="group1" type="radio" v-bind:id="answer.id" />
                       <label v-bind:for="answer.id" >{{answer.description}}</label>
                     </p>
+=======
+                <div class="row">
+
+                  <div id="divAnswers"></div>
+
+                </div>
+>>>>>>> 3c4370942c0b25c01acc2a167ab47b3da75c6215
                 <div class="row">
                   <span class="col s3 offset s7">
+<<<<<<< HEAD
                     <button class="btn waves-effect waves-light z-depth-5" type="submit" name="action">Enviar&nbsp </button>
                     <br>
                     <button class="btn waves-effect waves-light z-depth-5" v-on:click="showCard">Cancelar</button>
+=======
+                    <button class="btn waves-effect waves-light z-depth-5" type="submit" name="action">Enviar </button>
+>>>>>>> a2b77dd068936f7b67fb7c4f3fbc265385e58c7f
                   </span>
                 </div>
 
@@ -97,12 +113,20 @@
 
   <hr>
 
-    <div id="loadProposedQuestions" >
+    <div  id="app6">
       <ul class="collection with-header">
         <li class="collection-header"><h4>Preguntas propuestas</h4></li>
-        <div id="addToList">
-
-        </div>
+        <div id="addToList"></div>
+        <!--list-->
+          <li class="collection-item" v-for="question in questions">
+            <div>{{question.title}}
+            <button v-on:click="addVote(question.id)" class="btn secondary-content">
+              <i class="material-icons">thumb_up</i>
+            </button>
+            <p> Votos: {{question.votes}}</p>
+            </div>
+          </li>
+        <!--end-->
       </ul>
     </div>
   <!---->
@@ -113,6 +137,7 @@
   <script src="../js/jquery.min.js"></script>
   <!-- Compiled and minified JavaScript -->
   <script src="../js/materialize.min.js"></script>
+<<<<<<< HEAD
   <script>
     new Vue({
           el: "#main",
@@ -139,6 +164,86 @@
           }
         });
 
+=======
+  <script src="https://vuejs.org/js/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('#loadHere').load('navbarlanding.html');
+      $("#answersList").hide();
+      $("#btnQuestion").on('click',function(e){
+        e.preventDefault();
+        $("#cardQuestion").hide();
+        $("#answersList").show();
+      });
+          //week's question
+          $.ajax({
+              // la URL para la petición
+              url : 'http://198.199.80.27/api/questionweek',
+              type : 'GET',
+              dataType : 'json',
+              success : function(json) {
+                  $("#titleQuestion").append(json.question.title);
+                  $("#totalVotes").append(json.question.votes);
+                  $("#created").append(json.question.created_at);
+                  //$("#btnQuestion").attr('name',json.question.id);
+                  $("#qCreator").append(json.question.user.email);
+                  //add answers
+                  var myDiv = $("#divAnswers");
+                  
+                  $.each(json.question.answers, function(i, item){
+                    myDiv.append('<p>\
+                    <input class="with-gap" name="answer" type="radio" id="'+json.question.answers[i].id+'" />\
+                    <label for="'+json.question.answers[i].id+'">'+json.question.answers[i].description+'</label>\
+                  </p>\
+                  ');
+                  });
+                  
+              },
+              error : function(xhr, status) {
+                  console.log("error")
+              },
+              complete : function(xhr, status) {
+                  console.log("done");
+              }
+          });
+        })
+  </script>
+
+  
+  <script>
+    new Vue({
+      el: "#app6",
+      created: function(){
+        this.getQuestions();
+      },
+      data: {
+        questions: [],
+        
+      },
+      methods: {
+        addVote: function(id){
+          
+          var apiURL = "http://198.199.80.27/api/addVote/" + id;
+          axios({
+            method:'put',
+            url: apiURL,
+          })
+            .then(response => {
+              console.log(response.data);
+            });
+          },
+        getQuestions: function(){
+          var url = "http://198.199.80.27/api/questions";
+          axios.get(url).then(response => {
+            this.questions = response.data;
+            console.log(response.data);
+          });
+        }
+        }//end
+      
+    })
+>>>>>>> 3c4370942c0b25c01acc2a167ab47b3da75c6215
   </script>
 
 </body>
