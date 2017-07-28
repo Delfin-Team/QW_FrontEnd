@@ -10,14 +10,16 @@
 
 </head>
 <body>
-  <div class="container" id="main">
+  <header>
+    <div id="loadHere"></div>
+  </header>
 
-    <header>
-      <mynavbar></mynavbar>
-    </header>
+  <BR>
+  <div class="center-align ">
+    <h1><font color="#b71c1c">Pregunta de la semana</font></h1>
+  </div>
 
-    <!--question card-->
-    <div class="container blue lighten-5 z-depth-3" >
+  <div class="container blue lighten-5 z-depth-3" >
     <h4 class="indigo center-align"><font color="white" id="titleQuestion" ></font></h4>
     <div class="container border-radius: 10px" id="cardQuestion">
       <div class="row">
@@ -27,18 +29,16 @@
             <form class="col s12">
 
               <div class="row">
-                <h5 id="qCreator"><i class="material-icons">face</i>  Creador: {{ question.user.name }} </h5>
-                <h5 id="created"><i class="material-icons">schedule</i> Creado: {{ question.created_at}}</h5>
-                <h5 id="totalVotes"><i class="material-icons">star</i> Votos: {{ question.votes}}</h5>
+                <h5 id="qCreator"><i class="material-icons">face</i>  Creador:&nbsp</h5>
+                <h5 id="created"><i class="material-icons">schedule</i> Creado:&nbsp</h5>
+                <h5 id="totalVotes"><i class="material-icons">star</i> Votos: &nbsp</h5>
               </div>
 
               <div class="row">
                 <hr>
                 <div class="input-field col s12">
-                  <button class="btn btn-waves" v-on:click="showCard">Responder</button>
-
+                  <button class="btn btn-waves" id="btnQuestion" name="">Responder</button>
                   <br>
-
                   <br>
                   <h6><a href="graphicsquestion.html"><i class="material-icons">show_chart</i> Ver votos</a></h6>
                 </div>
@@ -51,7 +51,7 @@
     </div>
 
   <!--answers-->
-  <div id="answersList" v-if="answersState">
+  <div id="answersList">
 
       <h5 class="indigo center-align"><font color="white">Elige una respuesta</font></h5>
       <div class="container">
@@ -60,32 +60,14 @@
             <!--Materialize Components Forms-->
             <div class="row">
               <form class="col s12">
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
-                {{question.answers}}
->>>>>>> a2b77dd068936f7b67fb7c4f3fbc265385e58c7f
-                    <p v-for="answer in question.answers">
-                      <input name="group1" type="radio" v-bind:id="answer.id" />
-                      <label v-bind:for="answer.id" >{{answer.description}}</label>
-                    </p>
-=======
                 <div class="row">
 
                   <div id="divAnswers"></div>
 
                 </div>
->>>>>>> 3c4370942c0b25c01acc2a167ab47b3da75c6215
                 <div class="row">
                   <span class="col s3 offset s7">
-<<<<<<< HEAD
                     <button class="btn waves-effect waves-light z-depth-5" type="submit" name="action">Enviar&nbsp </button>
-                    <br>
-                    <button class="btn waves-effect waves-light z-depth-5" v-on:click="showCard">Cancelar</button>
-=======
-                    <button class="btn waves-effect waves-light z-depth-5" type="submit" name="action">Enviar </button>
->>>>>>> a2b77dd068936f7b67fb7c4f3fbc265385e58c7f
                   </span>
                 </div>
 
@@ -97,17 +79,7 @@
 
   </div>
   <!--end-->
-
-
   </div>
-    <!--end question card-->
-  </div>
-  <BR>
-  <div class="center-align ">
-    <h1><font color="#b71c1c">Pregunta de la semana</font></h1>
-  </div>
-
-
 
 
 
@@ -129,42 +101,11 @@
         <!--end-->
       </ul>
     </div>
-  <!---->
-  <script type="text/javascript" src="https://unpkg.com/vue@2.4.1"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js"></script>
-  <script type="text/javascript" src="../js/app.js"></script>
+
   <!--jQuery before JS-->
   <script src="../js/jquery.min.js"></script>
   <!-- Compiled and minified JavaScript -->
   <script src="../js/materialize.min.js"></script>
-<<<<<<< HEAD
-  <script>
-    new Vue({
-          el: "#main",
-          created: function(){
-            this.getQuestionWeek();
-          },
-          data: {
-            question: [],
-            answersState: false,
-
-          },
-          methods:{
-            getQuestionWeek: function(){
-              var apiURl = "http://198.199.80.27/api/questionweek";
-              axios.get(apiURl).then(response => {
-                this.question = response.data.question;
-                console.log(this.question);
-              });
-            },
-            showCard: function(e){
-              e.preventDefault();
-              this.answersState = !this.answersState;
-            }
-          }
-        });
-
-=======
   <script src="https://vuejs.org/js/vue.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script type="text/javascript">
@@ -243,7 +184,6 @@
         }//end
       
     })
->>>>>>> 3c4370942c0b25c01acc2a167ab47b3da75c6215
   </script>
 
 </body>

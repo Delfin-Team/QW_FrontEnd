@@ -11,13 +11,6 @@
 	 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-  <div class="container" id="main">
-    <header>
-      <mynavbar></mynavbar>
-    </header> 
-    <div class="row">
-      <div id="loadHere"></div> 
-
     <header>
       <div id="loadHere"></div>
     </header> 
@@ -53,39 +46,105 @@
         </div>   
     </div>
 
-      <div>
+    <!-- Modal Trigger -->
+    <div class="fixed-action-btn horizontal click-to-toggle">
+      <a class="btn-floating btn-large red">
+        <i class="material-icons">supervisor_account</i>
+      </a>
+      <ul>
+        
+        <li><a  href="#modal1" class="btn-floating orange darken-1"><i class="material-icons">delete</i></a></li>
+        <li><a  href="#modal2" class="btn-floating green"><i class="material-icons">group_add</i></a></li>
+        <li><a  href="#modal3" class="btn-floating blue"><i class="material-icons">search</i></a></li>
+      </ul>
+    </div>
+
       <!-- Modal Structure -->
       <div id="modal1" class="modal">
         <div class="modal-content">
-          <h4>Agregar un nuevo grupo:</h4>
-            <div class="row">
-              <form class="col s12">
-                <div class="row">
-                  <div class="input-field col s12">
-                    <i class="material-icons prefix">account_circle</i>
-                    <input id="icon_prefix" type="text" class="validate" v-model="nameGroup">
-                    <label for="icon_prefix">Nombre Grupo</label>
+          <h4>Eliminar  un grupo</h4>
+          <div class="row">
+                <form class="col s12">
+                  <div class="row">
+
+                     <div class="input-field col s12">
+                            <i class="material-icons prefix">people</i>
+                            <input id="icon_prefix" type="text" class="validate" v-model="email">
+                            <label for="icon_prefix">Nombre del Grupo</label>
+                          </div>
+                    <ul class="collection">
+                      
+                      <li v-for="item in searchUser" class="collection-item"><div>{{item.email}}<a href="#!" class="secondary-content"><i class="material-icons">delete_forever</i></a></div></li>
+                    </ul>
+                  
                   </div>
-                </div>
-              </form> 
-            </div>
+                </form> 
+          </div>
         </div>
         <div class="modal-footer">
-
-          <button class="modal-action modal-close waves-effect waves-green btn-flat" v-on:click="addGroup" v-if="nameGroup"> crear </button>
-          
           <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
         </div>
       </div>
-  </div>
-  </div>
 
+      <div id="modal2" class="modal">
+        <div class="modal-content">
+          <h4>Agregar Grupo</h4>
+          <div class="row">
+                <form class="col s12">
+                  <div class="row">
 
-
- <!-- Modal Trigger -->
-      <div class="fixed-action-btn">
-        <a class="btn-floating btn-large waves-effect waves-light red" href="#modal1"><i class="material-icons">group_add</i></a>  
+                     <div class="input-field col s12">
+                            <i class="material-icons prefix">people</i>
+                            <input id="icon_prefix" type="text" class="validate">
+                            <label for="icon_prefix">Nombre del Grupo</label>
+                      </div>
+                  </div>
+                   <div class="input-field col s6 offset-s3">
+                    <select>
+                      <option value="" disabled selected>Escoge una opcion</option>
+                      <option value="1">Privado</option>
+                      <option value="2">Publico</option>
+                    </select>
+                    <label>Tipo de Grupo</label>
+                  </div>
+                </form> 
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="modal-action modal-close waves-effect waves-green btn-flat" v-on:click="addGroup" > Agregar </button>
+          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+        </div>
       </div>
+
+      <div id="modal3" class="modal">
+        <div class="modal-content">
+          <h4>Buscar Grupos</h4>
+                    <div class="row">
+                  <form class="col s12">
+                    <div class="row">
+
+                       <div class="input-field col s12">
+                              <i class="material-icons prefix">people</i>
+                              <input id="icon_prefix" type="text" class="validate" v-model="email">
+                              <label for="icon_prefix">Nombre del Grupo</label>
+                        </div>
+                      <ul class="collection">
+                        
+                        <li v-for="item in searchUser" class="collection-item"><div>{{item.email}}<a href="#!" class="secondary-content"><i class="material-icons" >send</i></a></div></li>
+                      </ul>
+                    
+                    </div>
+                  </form> 
+            </div>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+
+        </div>
+      </div>
+  </div>
+
+
      <!-- vue --> 
       <script type="text/javascript" src="https://unpkg.com/vue@2.4.1"></script>
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js"></script>
@@ -122,7 +181,13 @@
                 }
               );
             },
+          },
+          computed:{
+              searchGroup:function(){
+              return this.list.filter((item)=>item.nameGroup.includes(this.nameGroup));
           }
+
+
         });
       </script>
       <!--Import jQuery before materialize.js-->
@@ -130,7 +195,7 @@
       <script type="text/javascript" src="../js/materialize.min.js"></script>
       <script type="text/javascript">
       $(document).ready(function()    {
-          
+          $('select').material_select();
           $('.modal').modal();
       })
       </script>
